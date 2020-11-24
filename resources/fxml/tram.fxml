@@ -5,7 +5,7 @@
 <VBox stylesheets="/css/main.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="sample.Controllers.Bus"
+      fx:controller="sample.Controllers.Tram"
       fx:id="container">
 
     <children>

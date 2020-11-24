@@ -5,18 +5,18 @@
 <VBox stylesheets="/css/main.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="sample.Controllers.Bus"
+      fx:controller="sample.Controllers.stations70"
       fx:id="container">
 
     <children>
 
-        <Label fx:id="title" text="Choose bus:"/>
+        <Label fx:id="title" text="Choose Station:"/>
 
         <HBox styleClass="busButtons">
             <children>
-                <Button fx:id="bus70" text="70" onAction="#bus70Click"/>
-                <Button fx:id="bus71A" text="71A" onAction="#bus71AClick" />
-                <Button fx:id="bus90" text="90" onAction="#bus90Click"/>
+                <Button fx:id="stat1" text="Füvészkert" onAction="#stat1Click"/>
+                <Button fx:id="stat2" text="Mars-tér" onAction="#stat2Click" />
+                <Button fx:id="stat3" text="Széchenyi-tér" onAction="#stat3Click"/>
             </children>
 
         </HBox>

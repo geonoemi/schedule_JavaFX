@@ -12,9 +12,9 @@
 
         <HBox styleClass="buttons">
             <children>
-                <Button fx:id="button1" text="Bus" onAction="#busClick"/>
-                <Button fx:id="button2" text="Tram" onAction="#tramClick"/>
-                <Button fx:id="button3" text="Trolley" onAction="#trolleyClick"/>
+                <Button fx:id="buttonBus" text="Bus" onAction="#busClick"/>
+                <Button fx:id="buttonTram" text="Tram" onAction="#tramClick"/>
+                <Button fx:id="buttonTrolley" text="Trolley" onAction="#trolleyClick"/>
             </children>
 
         </HBox>
