@@ -25,18 +25,13 @@ public class Main extends Application {
 
         Font.loadFont(getClass().getResource("/fonts/VarelaRound-Regular.ttf").toExternalForm(), 10);
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
-        primaryStage.setScene(new Scene(root,500, 500));
-        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(root,1000, 1000));
+        //primaryStage.setResizable(false);
         primaryStage.setTitle("Schedule App");
         primaryStage.show();
 
-        Database db=new Database("localhost", "menetrend_javafx", "root", "");
-        ResultSet rs = db.query("SELECT vonalSzam FROM vonal");
-        while(rs.next()) {
-            System.out.println(rs.getString("vonalSzam"));
-        }
-        //db.modify("INSERT INTO vonal (vonalSzam, vonalBetujel) VALUES (?, ?)", new String[]{"teszt", "7"});
-       // db.close();
+
+
 
     }
 

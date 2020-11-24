@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.util.ArrayList?>
 <VBox stylesheets="/css/main.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
@@ -10,14 +11,21 @@
 
         <Label fx:id="title" text="Choose vehicle:"/>
 
-        <HBox styleClass="buttons">
-            <children>
-                <Button fx:id="buttonBus" text="Bus" onAction="#busClick"/>
-                <Button fx:id="buttonTram" text="Tram" onAction="#tramClick"/>
-                <Button fx:id="buttonTrolley" text="Trolley" onAction="#trolleyClick"/>
-            </children>
+        <VBox styleClass="buttons">
 
-        </HBox>
+                <fx:define>
+                    <ArrayList fx:id="buttons" >
+
+                    </ArrayList>
+                </fx:define>
+
+                <!--Button fx:id="buttonBus" text="Bus" onAction="#busClick"/>
+                <Button fx:id="buttonTram" text="Tram" onAction="#tramClick"/>
+                <Button fx:id="buttonTrolley" text="Trolley" onAction="#trolleyClick"-->
+
+
+
+        </VBox>
 
     </children>
 </VBox>
