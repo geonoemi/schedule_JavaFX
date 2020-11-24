@@ -2,8 +2,7 @@ package sample;
 
 import java.sql.*;
 
-public class
-Database {
+public class Database {
 
     private Connection conn;
     private Statement sm;

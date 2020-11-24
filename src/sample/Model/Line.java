@@ -12,7 +12,7 @@ import java.util.InputMismatchException;
 
 public abstract class Line {
 
-    protected String lineNum;
+   /* protected String lineNum;
     protected boolean articulate;
     protected boolean lowFloor;
     protected double operationCost;
@@ -56,7 +56,7 @@ public abstract class Line {
 
         return lineNum+" "+articulate+" "+ lowFloor+" "+  operationCost +" "+numOfSeats+" "+	bicycleTransportOpp+" "+numOfDisabledPlaces
                 +" "+needToRepair+" "+typeOfFuel+" "+hasWheel+" "+typeOfVehicle;
-    }
+    }*/
 
 }
 
