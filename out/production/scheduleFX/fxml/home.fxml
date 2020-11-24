@@ -11,21 +11,16 @@
 
         <Label fx:id="title" text="Choose vehicle:"/>
 
-        <VBox styleClass="buttons">
+        <VBox styleClass="buttons" fx:id="content">
+            <children>
 
-                <fx:define>
-                    <ArrayList fx:id="buttons" >
+                    <fx:define>
+                        <ArrayList fx:id="buttons" >
 
-                    </ArrayList>
-                </fx:define>
+                        </ArrayList>
+                    </fx:define>
 
-                <!--Button fx:id="buttonBus" text="Bus" onAction="#busClick"/>
-                <Button fx:id="buttonTram" text="Tram" onAction="#tramClick"/>
-                <Button fx:id="buttonTrolley" text="Trolley" onAction="#trolleyClick"-->
-
-
-
+            </children>
         </VBox>
-
     </children>
 </VBox>
