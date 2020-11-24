@@ -25,7 +25,7 @@ import java.util.List;
 public class Home extends VBox{
 
     Database db = new Database("localhost", "menetrend_javafx", "root", "");
-    private ResultSet result= db.query("SELECT vonalSzam FROM vonal");
+    private ResultSet result= db.query("SELECT vonalSzam, vonalBetujel FROM vonal");
     @FXML
     HBox hbox;
     @FXML
@@ -42,7 +42,7 @@ public class Home extends VBox{
     public void initialize() throws SQLException {
         //container.getChildren().add(content);
         while(result.next()) {
-            buttons.add(result.getString("vonalSzam"));
+            buttons.add(result.getString("vonalSzam")+result.getString("vonalBetujel"));
         }
         ArrayList<HBox>hboxes=new ArrayList();
         /*almost there
@@ -54,15 +54,18 @@ public class Home extends VBox{
                 hboxes.get(i).getChildren().addAll(button);
             }
         }*/
+        int a=0;
+        int b=6;
         for (int i=0;i<5; i++) {
+
             hboxes.add(new HBox());
             container.getChildren().add(hboxes.get(i));
-            for(int j=0;j<6;j++){
+            for(int j=a;j<b;j++){
                 Button button=new Button(buttons.get(j));
                 hboxes.get(i).getChildren().addAll(button);
-               // j=buttons.size()/5;
             }
-
+            a+=5;
+            b+=5;
         }
 
     }
