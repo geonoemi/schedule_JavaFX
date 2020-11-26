@@ -1,44 +1,40 @@
 package sample.Controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.Database;
 
-import javax.xml.transform.Result;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Home extends VBox {
 
+    private static String clickedButtonText;
     @FXML VBox container;
     @FXML Label title;
-
     @FXML ArrayList<Button> buttonList=new ArrayList();
-    private ArrayList<HBox> hboxes = new ArrayList();
 
-    private Button clicked;
+    private ArrayList<HBox> hboxes = new ArrayList();
     private ArrayList<String> buttons = new ArrayList();
+    private Button clickedButton;
 
     Database db = new Database("localhost", "menetrend_javafx", "root", "");
     private ResultSet result = db.query("SELECT vonalSzam, vonalBetujel FROM vonal where vonal.vonalSorszam%2=0");
 
+    public static String getClickedButtonText(){ return clickedButtonText; }
 
     public void initialize() throws SQLException {
-       //a lekérdezett rekordok Stringjeiből létrehozok egy tömblistát, ez lesz majd a gombok felirata
+        //a lekérdezett rekordok Stringjeiből létrehozok egy tömblistát, ez lesz majd a gombok felirata
         while (result.next()) {
             buttons.add(result.getString("vonalSzam") + result.getString("vonalBetujel"));
         }
@@ -50,36 +46,41 @@ public class Home extends VBox {
             this.hboxes.add(new HBox());
             container.getChildren().add(hboxes.get(i));
             for (int j = a; j < b; j++) {
-             //a tömblista elemeit átadom a generált gombok feliratának
+                //a tömblista elemeit átadom a generált gombok feliratának
                 buttonList.add(new Button(buttons.get(j)));
                 this.hboxes.get(i).getChildren().addAll(buttonList.get(j));
-             //   this.clicked=buttonList.get(j).getText();
-                this.clicked=buttonList.get(j);
-                this.clicked.setOnAction(e-> {
-                    try {
-                        buttonClick();
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                });
-                /*buttonList.get(j).setOnAction(e-> {
-                    try {
-                        buttonClick(this.clicked);
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                });*/
-
             }
             a += 5;
             b += 5;
         }
+        clickedButton();
+    }
+    public Button clickedButton(){
+
+        for(int i=0;i<buttonList.size();i++){
+            buttonList.get(i).setOnAction(e-> {
+                //System.out.println("Button pressed " + ((Button) e.getSource()).getText());
+                //kiszedjük a megnyomott gomb szövegét
+                this.clickedButtonText=((Button) e.getSource()).getText();
+                System.out.println("this.clicked: "+this.clickedButtonText);
+            });
+        }
+        this.clickedButton=new Button(this.clickedButtonText);
+        System.out.println("clickedbutton: "+this.clickedButton.getText());
+        this.clickedButton.setOnAction(e-> {
+            try {
+                buttonClick();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        return this.clickedButton;
     }
 
     private void buttonClick() throws IOException {
-           Parent root = FXMLLoader.load(getClass().getResource("/fxml/Stations/stations.fxml"));
-           Stage stage=(Stage)clicked.getScene().getWindow();
-           stage.setScene(new Scene(root,300,300 ));
+           Parent root = FXMLLoader.load(getClass().getResource("/fxml/stations.fxml"));
+           Stage stage=(Stage)clickedButton.getScene().getWindow();
+           stage.setScene(new Scene(root,600,300 ));
     }
 }
 

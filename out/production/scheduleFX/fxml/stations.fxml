@@ -15,7 +15,7 @@
 
 
         <fx:define>
-            <ArrayList fx:id="buttons" >
+            <ArrayList fx:id="stationsButtonList" >
 
             </ArrayList>
         </fx:define>
