@@ -11,16 +11,10 @@
 
         <Label fx:id="title" text="Choose vehicle:"/>
 
-        <VBox styleClass="buttons" fx:id="content">
-            <children>
-
                     <fx:define>
-                        <ArrayList fx:id="buttons" >
+                        <ArrayList fx:id="buttonList" >
 
                         </ArrayList>
                     </fx:define>
-
-            </children>
-        </VBox>
     </children>
 </VBox>

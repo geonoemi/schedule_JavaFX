@@ -23,7 +23,7 @@ public class Bus {
         @FXML
         Button bus90;
 
-        public void bus70Click(ActionEvent actionEvent) throws IOException {
+       /* public void bus70Click(ActionEvent actionEvent) throws IOException {
                 Parent root = FXMLLoader.load(getClass().getResource("/fxml/Buses/bus70.fxml"));
                 Stage stage=(Stage)bus70.getScene().getWindow();
                 stage.setScene(new Scene(root,500,500 ));
@@ -40,7 +40,7 @@ public class Bus {
                 Stage stage=(Stage)bus90.getScene().getWindow();
                 stage.setScene(new Scene(root,500,500 ));
         }
-
+*/
        /* public ResultSet query(String sql) {
             try {
                 db.rs = db.sm.executeQuery(sql);

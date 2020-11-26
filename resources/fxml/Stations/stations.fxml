@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <?import java.util.ArrayList?>
 <VBox stylesheets="/css/main.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="sample.Controllers.Home"
+      fx:controller="sample.Controllers.Stations"
       fx:id="container">
+
     <children>
 
-        <Label fx:id="title" text="Choose vehicle:"/>
+        <Label fx:id="title" text="Choose Station:"/>
 
-                    <fx:define>
-                        <ArrayList fx:id="buttonList" >
 
-                        </ArrayList>
-                    </fx:define>
+        <fx:define>
+            <ArrayList fx:id="buttons" >
+
+            </ArrayList>
+        </fx:define>
+
     </children>
 </VBox>
