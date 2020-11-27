@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.Database;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 
 public class Home extends VBox {
 
-    private static String clickedButtonText;
     @FXML VBox container;
     @FXML Label title;
     @FXML ArrayList<Button> buttonList=new ArrayList();
@@ -27,6 +25,7 @@ public class Home extends VBox {
     private ArrayList<HBox> hboxes = new ArrayList();
     private ArrayList<String> buttons = new ArrayList();
     private Button clickedButton;
+    private static String clickedButtonText;
 
     Database db = new Database("localhost", "menetrend_javafx", "root", "");
     private ResultSet result = db.query("SELECT vonalSzam, vonalBetujel FROM vonal where vonal.vonalSorszam%2=0");
@@ -41,6 +40,7 @@ public class Home extends VBox {
 
         int a = 0;
         int b = 5;
+
         for (int i = 0; i < 3; i++) {
 
             this.hboxes.add(new HBox());
@@ -55,6 +55,7 @@ public class Home extends VBox {
         }
         clickedButton();
     }
+
     public Button clickedButton(){
 
         for(int i=0;i<buttonList.size();i++){
@@ -84,35 +85,6 @@ public class Home extends VBox {
     }
 }
 
-//select vonal.vonalSzam, vonal.kezdoAllomasSorszam
-//FROM vonal inner join allomas on vonal.vonalSorszam=allomas.allomasSorszam
-
-
-        //SELECT
-        //vonal.vonalSzam AS 'Vonal szam',
-        //vonal.vonalBetujel AS 'Vonal betujel',
-        //vonal.kezdoAllomasSorszam AS 'Kezdo allomas',
-        //vonal.vegAllomasSorszam AS 'Vegallomas',
-        //allomas.nev
-        //
-        //FROM erint
-        //INNER JOIN vonal ON erint.vonalSorszam = vonal.vonalSorszam
-        //INNER JOIN allomas ON erint.allomasSorszam = allomas.allomasSorszam
-        //WHERE
-        //vonal.vonalSzam LIKE '2'
-
-
-
-        //adott vonal állomásai:
-        /*SELECT
-
-        allomas.nev
-
-        FROM erint
-        INNER JOIN vonal ON erint.vonalSorszam = vonal.vonalSorszam
-        INNER JOIN allomas ON erint.allomasSorszam = allomas.allomasSorszam
-        WHERE
-        vonal.vonalSzam LIKE '2' AND vonal.vonalSorszam%2=0*/
 
 
 

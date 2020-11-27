@@ -1,10 +1,10 @@
 package sample.Controllers;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -20,42 +20,44 @@ public class Stations {
     @FXML Label title;
     @FXML ArrayList<Button> stationsButtonList=new ArrayList();
 
-    private ArrayList<String> buttons = new ArrayList();
+    private ChoiceBox<String> stationChoice = new ChoiceBox(); //fxmlből nem látja
+
+    private ArrayList<String> stations = new ArrayList();
     private Button clickedNum=new Button(Home.getClickedButtonText());
-    private ArrayList<String> stationsText = new ArrayList();
     private Button clickedStation;
+
     Database db = new Database("localhost", "menetrend_javafx", "root", "");
-    private ResultSet result = db.query("SELECT allomas.nev\n" +
-            "\n" +
+    private ResultSet result = db.query("SELECT allomas.nev" +
             "    FROM erint\n" +
             "    INNER JOIN vonal ON erint.vonalSorszam = vonal.vonalSorszam\n" +
             "    INNER JOIN allomas ON erint.allomasSorszam = allomas.allomasSorszam\n" +
-            "            WHERE\n" +
-            "    vonal.vonalSzam LIKE '"+this.clickedNum/*"ide jönne a Home.clickedButton, ha látná"*/+"' AND vonal.vonalSorszam%2=0");
+            "    WHERE\n" +
+            "    vonal.vonalSzam LIKE '"+4/*"ide jönne a Home.clickedButton, ha látná"*/+"' AND vonal.vonalSorszam%2=0");
 
-
-    public void showStations() throws SQLException {
+    public void initialize() throws SQLException, IOException {
+        //choicebox hozzáadása a containerhez
+        this.container.getChildren().add(this.stationChoice);
+        //kiszedjük az állomásokat stringként
         while (result.next()) {
-            buttons.add(result.getString("nev"));
-
+            stations.add(result.getString("nev"));
         }
-        for (int i=0;i<buttons.size();i++){
-            stationsButtonList.add(new Button(buttons.get(i)));
-            System.out.println(buttons.get(i));
+        //az állomásneveket átadjuk a choiceboxnak
+        for (int i=0;i<stations.size();i++){
+            this.stationChoice.getItems().addAll(stations.get(i));
+            System.out.println("stations: "+stations.get(i));
         }
-
-        for(int i=0;i<stationsButtonList.size();i++){
-            this.container.getChildren().addAll(stationsButtonList.get(i));
-            /*this.clickedStation=stationsButtonList.get(i);
-            this.clickedStation.setOnAction(e-> {
-                clickedStation();
-            });*/
-        }
+        //coiceboxnak kezdőérték
+        this.stationChoice.setValue(this.stationChoice.getItems().get(0));
+        //choiceboxra eseményfigyelő, melyiket választotta
+        this.stationChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.clickedStation.setText(stationChoice + " "+newValue));
+        System.out.println("clickedStation:"+this.clickedStation);
         clickedStation();
     }
 
-    private void clickedStation() {
-
+    private void clickedStation() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/way.fxml"));
+        Stage stage=(Stage)this.clickedStation.getScene().getWindow();
+        stage.setScene(new Scene(root,600,300 ));
     }
 
 
