@@ -9,11 +9,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import sample.Database;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Home extends VBox {
@@ -24,19 +26,17 @@ public class Home extends VBox {
 
     private ArrayList<HBox> hboxes = new ArrayList();
     private ArrayList<String> buttons = new ArrayList();
-    private Button clickedButton;
-    private static String clickedButtonText;
-
-    Database db = new Database("localhost", "menetrend_javafx", "root", "");
-    private ResultSet result = db.query("SELECT vonalSzam, vonalBetujel FROM vonal where vonal.vonalSorszam%2=0");
-
-    public static String getClickedButtonText(){ return clickedButtonText; }
+    private String clickedButtonText;
+    private Model model = new Model();
+    private ArrayList<String[]> iHaveGivenUp;
 
     public void initialize() throws SQLException {
         //a lekérdezett rekordok Stringjeiből létrehozok egy tömblistát, ez lesz majd a gombok felirata
-        while (result.next()) {
-            buttons.add(result.getString("vonalSzam") + result.getString("vonalBetujel"));
+        iHaveGivenUp = model.getLineNumLetter();
+        for (int i = 0; i< iHaveGivenUp.size(); i++) {
+            buttons.add(iHaveGivenUp.get(i)[0] + iHaveGivenUp.get(i)[1]);
         }
+
 
         int a = 0;
         int b = 5;
@@ -56,33 +56,64 @@ public class Home extends VBox {
         clickedButton();
     }
 
-    public Button clickedButton(){
+    public void clickedButton(){
 
         for(int i=0;i<buttonList.size();i++){
             buttonList.get(i).setOnAction(e-> {
                 //System.out.println("Button pressed " + ((Button) e.getSource()).getText());
                 //kiszedjük a megnyomott gomb szövegét
-                this.clickedButtonText=((Button) e.getSource()).getText();
-                System.out.println("this.clicked: "+this.clickedButtonText);
+
+
+                try {
+
+                    this.clickedButtonText=((Button) e.getSource()).getText();
+                    String lineNum = "", lineLetter = "";
+                    for(int j = 0; j<buttons.size(); j++) {
+                        if (this.clickedButtonText.equals(buttons.get(j))) {
+                            lineNum = iHaveGivenUp.get(j)[0];
+                            lineLetter = iHaveGivenUp.get(j)[1];
+                        }
+                    }
+                    nextScene(lineNum, lineLetter);
+
+                } catch (Exception ioException) {
+                    ioException.printStackTrace();
+                }
             });
         }
-        this.clickedButton=new Button(this.clickedButtonText);
-        System.out.println("clickedbutton: "+this.clickedButton.getText());
-        this.clickedButton.setOnAction(e-> {
-            try {
-                nextScene();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
-        return this.clickedButton;
-    }
 
-    private void nextScene() throws IOException {
-           Parent root = FXMLLoader.load(getClass().getResource("/fxml/stations.fxml"));
-           Stage stage=(Stage)clickedButton.getScene().getWindow();
-           stage.setScene(new Scene(root,600,300 ));
+
+
     }
+    private void nextScene(String lineNum, String lineLetter) throws IOException {
+        System.out.println("Gecikurvaanyád");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/way.fxml"));
+        Way way = new Way(lineNum, lineLetter);
+        loader.setController(way);
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene(loader.load()));
+
+
+        stage.show();
+    }
+    /*public Stage showCustomerDialog(Customer customer) {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(
+                        "customerDialog.fxml"
+                )
+        );
+
+
+        );
+
+        CustomerDialogController controller = loader.getController();
+        controller.initData(customer);
+
+
+
+        return stage;
+    }*/
+
 }
 
 

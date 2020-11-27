@@ -23,24 +23,18 @@ public class Stations {
     private ChoiceBox<String> stationChoice = new ChoiceBox(); //fxmlből nem látja
 
     private ArrayList<String> stations = new ArrayList();
-    private Button clickedNum=new Button(Home.getClickedButtonText());
+    private String clickedNum;
     private Button clickedStation;
+    private Model model = new Model();
 
-    Database db = new Database("localhost", "menetrend_javafx", "root", "");
-    private ResultSet result = db.query("SELECT allomas.nev" +
-            "    FROM erint\n" +
-            "    INNER JOIN vonal ON erint.vonalSorszam = vonal.vonalSorszam\n" +
-            "    INNER JOIN allomas ON erint.allomasSorszam = allomas.allomasSorszam\n" +
-            "    WHERE\n" +
-            "    vonal.vonalSzam LIKE '"+4/*"ide jönne a Home.clickedNum, ha látná"*/+"' AND vonal.vonalSorszam%2=0");
-
+    public Stations(String clickedButton) {
+        this.clickedNum = clickedButton;
+    }
     public void initialize() throws SQLException, IOException {
         //choicebox hozzáadása a containerhez
         this.container.getChildren().add(this.stationChoice);
         //kiszedjük az állomásokat stringként
-        while (result.next()) {
-            stations.add(result.getString("nev"));
-        }
+        stations = model.getStationName(this.clickedNum);
         //az állomásneveket átadjuk a choiceboxnak
         for (int i=0;i<stations.size();i++){
             this.stationChoice.getItems().addAll(stations.get(i));
@@ -60,10 +54,14 @@ public class Stations {
 
     }
     private void nextScene() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/way.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/way.fxml"));
+
+
+        Parent root = loader.load();
         Stage stage=(Stage)this.clickedStation.getScene().getWindow();
         stage.setScene(new Scene(root,600,300 ));
     }
+
 
 
 }

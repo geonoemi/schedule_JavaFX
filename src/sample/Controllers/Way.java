@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.Database;
 
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
@@ -24,28 +25,24 @@ public class Way {
 
     private ChoiceBox<String> wayChoice = new ChoiceBox();
     private Button clickedWay;
+    private String lineNum;
+    private String lineLetter;
+    private Model model = new Model();
+
    /* private String num=Home.getClickedButtonText().substring(0,2);
     private String letter=Home.getClickedButtonText().substring(2,3);*/
+    public Way(String lineNum, String lineLetter) {
 
-    Database db = new Database("localhost", "menetrend_javafx", "root", "");
-    private ResultSet result = db.query("SELECT\n" +
-            "A.nev,\n" +
-            "V1.vonalSzam,\n" +
-            "V1.vonalSorszam,\n" +
-            "V1.kezdoAllomasSorszam,\n" +
-            "V1.vegAllomasSorszam\n" +
-            "FROM allomas AS A\n" +
-            "INNER JOIN vonal AS V1 ON A.allomasSorszam = V1.kezdoAllomasSorszam\n" +
-            "\n" +
-            "WHERE V1.vonalSzam LIKE '90'"+/*this.num*/ "AND V1.vonalBetujel LIKE 'H'" /*this.letter*/);
+        this.lineNum = lineNum;
+        this.lineLetter = lineLetter;
+        System.out.println(lineNum);
+    }
 
     public void initialize() throws SQLException, IOException {
         //choicebox hozzáadása a containerhez
         this.container.getChildren().add(this.wayChoice);
         //kiszedjük a kezdő és végállomásokat stringként
-        while (result.next()) {
-            wayList.add(result.getString("nev"));
-        }
+        wayList = model.getWayList(lineNum, lineLetter);
         //az kezdő és végállomásokat átadjuk a choiceboxnak
         for (int i = 0; i < wayList.size(); i++) {
             this.wayChoice.getItems().addAll(wayList.get(i));
@@ -53,7 +50,7 @@ public class Way {
         }
         //coiceboxnak kezdőérték
         this.wayChoice.setValue(this.wayChoice.getItems().get(0));
-        clickedWay();
+
     }
 
     public void clickedWay() throws IOException {
