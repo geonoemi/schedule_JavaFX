@@ -26,7 +26,7 @@
     -fx-letter-spacing: 10px;
 }
 
-.buttons {
+#buttonList {
     -fx-spacing: 10px;
 }
 

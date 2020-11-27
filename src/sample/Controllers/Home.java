@@ -70,7 +70,7 @@ public class Home extends VBox {
         System.out.println("clickedbutton: "+this.clickedButton.getText());
         this.clickedButton.setOnAction(e-> {
             try {
-                buttonClick();
+                nextScene();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -78,7 +78,7 @@ public class Home extends VBox {
         return this.clickedButton;
     }
 
-    private void buttonClick() throws IOException {
+    private void nextScene() throws IOException {
            Parent root = FXMLLoader.load(getClass().getResource("/fxml/stations.fxml"));
            Stage stage=(Stage)clickedButton.getScene().getWindow();
            stage.setScene(new Scene(root,600,300 ));

@@ -48,13 +48,18 @@ public class Stations {
         }
         //coiceboxnak kezdőérték
         this.stationChoice.setValue(this.stationChoice.getItems().get(0));
+        //clickedStation();
+
+    }
+
+    public void clickedStation() throws IOException {
         //choiceboxra eseményfigyelő, melyiket választotta
         this.stationChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.clickedStation.setText(this.stationChoice + " "+newValue));
         System.out.println("clickedStation:"+this.clickedStation);
-       // clickedStation();
-    }
+        nextScene();
 
-    private void clickedStation() throws IOException {
+    }
+    private void nextScene() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/way.fxml"));
         Stage stage=(Stage)this.clickedStation.getScene().getWindow();
         stage.setScene(new Scene(root,600,300 ));

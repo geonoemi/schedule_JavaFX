@@ -1,10 +1,14 @@
 package sample.Controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import sample.Database;
 
 import java.io.IOException;
@@ -49,12 +53,20 @@ public class Way {
         }
         //coiceboxnak kezdőérték
         this.wayChoice.setValue(this.wayChoice.getItems().get(0));
+        clickedWay();
+    }
+
+    public void clickedWay() throws IOException {
         //choiceboxra eseményfigyelő, melyiket választotta
         this.wayChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.clickedWay.setText(this.wayChoice.getValue() + " "+newValue));
         System.out.println("clickedWay:"+this.clickedWay);
-        // clickedStation();
+        nextScene();
     }
 
-
+    private void nextScene() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/getOffTimes.fxml"));
+        Stage stage=(Stage)this.clickedWay.getScene().getWindow();
+        stage.setScene(new Scene(root,600,300 ));
+    }
 
 }
