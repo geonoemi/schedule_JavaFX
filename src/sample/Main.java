@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException, SQLException {
 
         Font.loadFont(getClass().getResource("/fonts/VarelaRound-Regular.ttf").toExternalForm(), 10);
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/way.fxml"));
         primaryStage.setScene(new Scene(root,700, 500));
         //primaryStage.setResizable(false);
         primaryStage.setTitle("Schedule App");

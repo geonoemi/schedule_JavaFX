@@ -32,7 +32,7 @@ public class Stations {
             "    INNER JOIN vonal ON erint.vonalSorszam = vonal.vonalSorszam\n" +
             "    INNER JOIN allomas ON erint.allomasSorszam = allomas.allomasSorszam\n" +
             "    WHERE\n" +
-            "    vonal.vonalSzam LIKE '"+4/*"ide jönne a Home.clickedButton, ha látná"*/+"' AND vonal.vonalSorszam%2=0");
+            "    vonal.vonalSzam LIKE '"+4/*"ide jönne a Home.clickedNum, ha látná"*/+"' AND vonal.vonalSorszam%2=0");
 
     public void initialize() throws SQLException, IOException {
         //choicebox hozzáadása a containerhez
@@ -49,9 +49,9 @@ public class Stations {
         //coiceboxnak kezdőérték
         this.stationChoice.setValue(this.stationChoice.getItems().get(0));
         //choiceboxra eseményfigyelő, melyiket választotta
-        this.stationChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.clickedStation.setText(stationChoice + " "+newValue));
+        this.stationChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.clickedStation.setText(this.stationChoice + " "+newValue));
         System.out.println("clickedStation:"+this.clickedStation);
-        clickedStation();
+       // clickedStation();
     }
 
     private void clickedStation() throws IOException {
@@ -62,3 +62,4 @@ public class Stations {
 
 
 }
+
