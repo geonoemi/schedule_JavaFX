@@ -60,7 +60,7 @@ public class Way {
         //choiceboxra eseményfigyelő, melyiket választotta
         this.wayChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.clickedWay.setText(this.wayChoice.getValue() + " "+newValue));
         System.out.println("clickedWay:"+this.clickedWay);
-        nextScene();
+        //nextScene();
     }
 
     private void nextScene() throws IOException {

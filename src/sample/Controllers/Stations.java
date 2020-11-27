@@ -56,7 +56,7 @@ public class Stations {
         //choiceboxra eseményfigyelő, melyiket választotta
         this.stationChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.clickedStation.setText(this.stationChoice + " "+newValue));
         System.out.println("clickedStation:"+this.clickedStation);
-        nextScene();
+        //nextScene();
 
     }
     private void nextScene() throws IOException {
