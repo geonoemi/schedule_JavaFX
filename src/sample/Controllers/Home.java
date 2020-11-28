@@ -86,7 +86,7 @@ public class Home extends VBox {
 
     }
     private void nextScene(String lineNum, String lineLetter) throws IOException {
-        System.out.println("Gecikurvaanyád");
+       // System.out.println("Gecikurvaanyád");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/stations.fxml"));
         Stations stations = new Stations(lineNum, lineLetter);
 

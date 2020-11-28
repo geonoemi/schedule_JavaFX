@@ -33,9 +33,9 @@ public class Stations {
 
     public Stations(String lineNum, String lineLetter) {
         this.lineNum = lineNum;
-        System.out.println(lineLetter);
+       // System.out.println(lineLetter);
         this.lineLetter = lineLetter;
-        System.out.println(lineNum);
+        //System.out.println(lineNum);
     }
     public void initialize() throws SQLException, IOException {
         //choicebox hozzáadása a containerhez
@@ -50,7 +50,7 @@ public class Stations {
         //az állomásneveket átadjuk a choiceboxnak
         for (int i=0;i<stations.size();i++){
             this.stationChoice.getItems().addAll(stations.get(i));
-            System.out.println("stations: "+stations.get(i));
+          //  System.out.println("stations: "+stations.get(i));
         }
         //coiceboxnak kezdőérték
         this.stationChoice.setValue(this.stationChoice.getItems().get(0));

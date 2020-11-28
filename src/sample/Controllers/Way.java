@@ -37,8 +37,8 @@ public class Way {
 
         this.lineNum = lineNum;
         this.lineLetter = lineLetter;
-        System.out.println(lineNum);
-        System.out.println(lineLetter);
+       /* System.out.println(lineNum);
+        System.out.println(lineLetter);*/
     }
 
     public void initialize() throws SQLException, IOException {
@@ -55,7 +55,7 @@ public class Way {
         //az kezdő és végállomásokat átadjuk a choiceboxnak
         for (int i = 0; i < wayList.size(); i++) {
             this.wayChoice.getItems().addAll(wayList.get(i));
-            System.out.println("stations: " + wayList.get(i));
+           /* System.out.println("stations: " + wayList.get(i));*/
         }
         //coiceboxnak kezdőérték
         this.wayChoice.setValue(this.wayChoice.getItems().get(0));

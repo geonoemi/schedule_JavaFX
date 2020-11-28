@@ -4,10 +4,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,10 +21,10 @@ import java.util.ArrayList;
 public class GetOffTimes {
     private String lineNum, lineLetter, stationName;
     private Model model = new Model();
-    @FXML
-    VBox container;
-    @FXML
-    Label title;
+    private ArrayList<HBox> hboxes = new ArrayList();
+    @FXML VBox container;
+    @FXML ArrayList timesContainer;
+    @FXML Label title;
 
     public GetOffTimes(String lineNum, String lineLetter, String stationName) {
         this.lineNum = lineNum;
@@ -29,19 +33,41 @@ public class GetOffTimes {
     }
 
     public void initialize() throws SQLException, IOException {
-        ArrayList<String> temp = model.getTimesFromStations(this.lineNum, this.lineLetter, this.stationName);
+        this.title.setText("The next vehicle arrives at the following times:");
+        ArrayList<String> timesList = model.getDisabledVehicleTimesFromStations(this.lineNum, this.lineLetter, this.stationName);
         Label label = new Label();
-        String test = "";
-        for (String s:
-             temp) {
-            test += s + "\n";
+        String times = "";
+        String timesSubstring="";
+        /*7.index rokkantszám, 9. index alacsonypadlos true*/
+        this.timesContainer.add(this.hboxes);
+        for (int i=0;i<timesList.size();i++) {
+            hboxes.add(new HBox(label));
+            times += timesList.get(i) + "\n";
+            timesSubstring+=timesList.get(i).substring(0,5) + "\n";
+            label.setText(timesSubstring);
+
+            if(Integer.parseInt(String.valueOf(times.charAt(6)))>=1 && Integer.parseInt(String.valueOf(times.charAt(8)))==1){
+            //if(Integer.parseInt(String.valueOf(timesList.get(i).charAt(6)))>=1 && Integer.parseInt(String.valueOf(timesList.get(i).charAt(8)))==1){
+                //System.out.println(timesSubstring+"rokkant: "+Integer.parseInt(String.valueOf(timesList.get(i).charAt(6)))+" alacsonypadlós? "+Integer.parseInt(String.valueOf(timesList.get(i).charAt(8))));
+                label.setBackground(new Background(new BackgroundFill(Color.rgb(255, 204, 0,1), new CornerRadii(5.0), new Insets(-5.0))));
+            }else{
+                label.setBackground(new Background(new BackgroundFill(Color.rgb(18, 54, 125,1), new CornerRadii(5.0), new Insets(-5.0))));
+            }
+            this.container.getChildren().add(label);
         }
-        label.setText(test);
-        this.container.getChildren().add(label);
+        HBox notification=new HBox();
+        notification.setAlignment(Pos.BOTTOM_RIGHT);
+        Label notifLabel=new Label("akadálymentesített járatok");
+
+        Rectangle rect = new Rectangle(0,0, 10, 10);
+        rect.setFill(Color.rgb(255, 204, 0,1));
+        notification.getChildren().addAll(rect, notifLabel);
+        this.container.getChildren().addAll( notification);
+
 
 
     }
-    public void nextScene() throws IOException {
+    /*public void nextScene() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/getofftimes.fxml"));
 
         GetOffTimes got = new GetOffTimes(lineNum, lineLetter, stationName);
@@ -52,5 +78,5 @@ public class GetOffTimes {
 
 
         stage.show();
-    }
+    }*/
 }
