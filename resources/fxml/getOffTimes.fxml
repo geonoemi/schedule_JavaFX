@@ -6,9 +6,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.Controllers.GetOffTimes"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox stylesheets="/css/main.css"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:id="container">
 
-</AnchorPane>
+    <children>
+
+        <Label fx:id="title" text="Time:"/>
+
+
+
+        <fx:define>
+            <ArrayList fx:id="stationsButtonList" >
+
+            </ArrayList>
+        </fx:define>
+
+    </children>
+</VBox>

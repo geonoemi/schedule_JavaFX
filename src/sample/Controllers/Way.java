@@ -1,5 +1,7 @@
 package sample.Controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +26,7 @@ public class Way {
     @FXML ArrayList<String> wayList = new ArrayList();
 
     private ChoiceBox<String> wayChoice = new ChoiceBox();
-    private Button clickedWay;
+    private String clickedWay;
     private String lineNum;
     private String lineLetter;
     private Model model = new Model();
@@ -36,13 +38,20 @@ public class Way {
         this.lineNum = lineNum;
         this.lineLetter = lineLetter;
         System.out.println(lineNum);
+        System.out.println(lineLetter);
     }
 
     public void initialize() throws SQLException, IOException {
         //choicebox hozzáadása a containerhez
         this.container.getChildren().add(this.wayChoice);
         //kiszedjük a kezdő és végállomásokat stringként
-        wayList = model.getWayList(lineNum, lineLetter);
+        wayList.add("Válasszon állomást");
+        ArrayList<String> temp = model.getWayList(lineNum, lineLetter);
+        for (String s:
+                temp) {
+            wayList.add(s);
+        }
+
         //az kezdő és végállomásokat átadjuk a choiceboxnak
         for (int i = 0; i < wayList.size(); i++) {
             this.wayChoice.getItems().addAll(wayList.get(i));
@@ -50,20 +59,31 @@ public class Way {
         }
         //coiceboxnak kezdőérték
         this.wayChoice.setValue(this.wayChoice.getItems().get(0));
-
+        this.wayChoice.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                if (t1 != null) {
+                    clickedWay = wayList.get((int) t1);
+                    try {
+                        nextScene(lineNum, lineLetter, clickedWay);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
-    public void clickedWay() throws IOException {
-        //choiceboxra eseményfigyelő, melyiket választotta
-        this.wayChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> this.clickedWay.setText(this.wayChoice.getValue() + " "+newValue));
-        System.out.println("clickedWay:"+this.clickedWay);
-        //nextScene();
-    }
+    private void nextScene(String lineNum, String lineLetter, String stationName) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/getOffTimes.fxml"));
+        GetOffTimes got = new GetOffTimes(lineNum, lineLetter, stationName);
+        loader.setController(got);
+        Parent root = loader.load();
+        Stage stage = (Stage) this.container.getScene().getWindow();
+        stage.setScene(new Scene(root, 700, 500));
 
-    private void nextScene() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/getOffTimes.fxml"));
-        Stage stage=(Stage)this.clickedWay.getScene().getWindow();
-        stage.setScene(new Scene(root,600,300 ));
+
+        stage.show();
     }
 
 }

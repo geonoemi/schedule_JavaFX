@@ -15,13 +15,13 @@ public class Model {
     public ArrayList<String[]> getLineNumLetter() throws SQLException {
         ArrayList<String[]> result = new ArrayList<>();
 
-        ResultSet queryResult = db.query("SELECT vonalSzam, vonalBetujel FROM vonal WHERE vonalSzam%2=0");
+        ResultSet queryResult = db.query("SELECT vonalSzam, vonalBetujel FROM vonal WHERE vonalSorszam%2=0 ORDER BY vonalSzam, vonalBetujel ASC;");
         while (queryResult.next()) {
             result.add(new String[]{queryResult.getString("vonalSzam"), queryResult.getString("vonalBetujel")});
         }
         return result;
     }
-    public ArrayList getStationName(String clickedNum) throws SQLException {
+    public ArrayList getStationName(String lineNum, String lineLetter) throws SQLException {
         ArrayList<String> stations = new ArrayList<>();
 
         ResultSet result = db.query("SELECT allomas.nev" +
@@ -29,10 +29,11 @@ public class Model {
                 "    INNER JOIN vonal ON erint.vonalSorszam = vonal.vonalSorszam\n" +
                 "    INNER JOIN allomas ON erint.allomasSorszam = allomas.allomasSorszam\n" +
                 "    WHERE\n" +
-                "    vonal.vonalSzam LIKE '"+clickedNum/*"ide jönne a Home.clickedNum, ha látná"*/+"' AND vonal.vonalSorszam%2=0");
+                "    vonal.vonalSzam LIKE '"+ lineNum + "' AND vonal.vonalBetujel LIKE '" + lineLetter + "' AND vonal.vonalSorszam%2=0");
 
         while (result.next()) {
             stations.add(result.getString("nev"));
+            System.out.println(result.getString("nev"));
 
         }
         return stations;
@@ -56,5 +57,18 @@ public class Model {
             ways.add(result.getString("nev"));
         }
         return ways;
+     }
+     public ArrayList getTimesFromStations(String linenum, String lineLetter, String stationName) throws SQLException {
+        ArrayList<String> times = new ArrayList<>();
+        ResultSet result = db.query("SELECT jarat.indulasiIdo FROM vonal  \n" +
+                "            INNER JOIN jarat ON vonal.vonalSorszam = jarat.vonalSorszam \n" +
+                "            WHERE \n" +
+                "            vonal.vonalSzam LIKE '"+linenum+"' AND vonal.vonalBetujel LIKE '" + lineLetter+"'\n" +
+                "            AND vonal.vegAllomasSorszam IN ( SELECT allomas.allomasSorszam \n" +
+                "            FROM allomas WHERE allomas.nev LIKE  '"+ stationName +"');");
+        while (result.next()) {
+            times.add(result.getString("indulasiIdo"));
+        }
+        return times;
      }
 }

@@ -87,32 +87,16 @@ public class Home extends VBox {
     }
     private void nextScene(String lineNum, String lineLetter) throws IOException {
         System.out.println("Gecikurvaanyád");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/way.fxml"));
-        Way way = new Way(lineNum, lineLetter);
-        loader.setController(way);
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(new Scene(loader.load()));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/stations.fxml"));
+        Stations stations = new Stations(lineNum, lineLetter);
 
+        loader.setController(stations);
+        Stage stage = (Stage) this.container.getScene().getWindow();
+        Parent root = loader.load();
+        stage.setScene(new Scene(root, 700, 500));
 
         stage.show();
     }
-    /*public Stage showCustomerDialog(Customer customer) {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource(
-                        "customerDialog.fxml"
-                )
-        );
-
-
-        );
-
-        CustomerDialogController controller = loader.getController();
-        controller.initData(customer);
-
-
-
-        return stage;
-    }*/
 
 }
 
