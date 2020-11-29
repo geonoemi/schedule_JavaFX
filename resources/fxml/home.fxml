@@ -2,22 +2,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.util.ArrayList?>
-<?import javafx.geometry.Insets?>
+
 <VBox stylesheets="/css/main.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="sample.Controllers.Home"
       fx:id="container">
-    <children>
 
-        <Label fx:id="title" text="Choose vehicle:"/>
-
+        <Label fx:id="title" text="Válassz valamit:"/>
         <fx:define>
-            <ArrayList fx:id="buttonList" >
-                <!--VBox.margin>
-                    <Insets>10</Insets>
-                </VBox.margin-->
-            </ArrayList>
+            <ArrayList fx:id="buttonList"></ArrayList>
         </fx:define>
-    </children>
 </VBox>

@@ -1,13 +1,9 @@
-package sample.Controllers;
+package sample.Model;
 
-import javafx.util.Pair;
 import sample.Database;
-
-import javax.xml.transform.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Model {
     Database db = new Database("localhost", "menetrend_javafx", "root", "");
@@ -54,19 +50,7 @@ public class Model {
         }
         return ways;
      }
-     public ArrayList getTimesFromStations(String linenum, String lineLetter, String stationName) throws SQLException {
-        ArrayList<String> times = new ArrayList<>();
-        ResultSet result = db.query("SELECT jarat.indulasiIdo FROM vonal  \n" +
-                "            INNER JOIN jarat ON vonal.vonalSorszam = jarat.vonalSorszam \n" +
-                "            WHERE \n" +
-                "            vonal.vonalSzam LIKE '"+linenum+"' AND vonal.vonalBetujel LIKE '" + lineLetter+"'\n" +
-                "            AND vonal.vegAllomasSorszam IN ( SELECT allomas.allomasSorszam \n" +
-                "            FROM allomas WHERE allomas.nev LIKE  '"+ stationName +"');");
-        while (result.next()) {
-            times.add(result.getString("indulasiIdo"));
-        }
-        return times;
-     }
+
     public ArrayList getDisabledVehicleTimesFromStations(String linenum, String lineLetter, String stationName) throws SQLException {
         ArrayList<String> times = new ArrayList<>();
         ResultSet result = db.query("SELECT jarat.indulasiIdo,jarat.rokkantHelyekSzama,jarat.alacsonyPadlos FROM vonal  \n" +

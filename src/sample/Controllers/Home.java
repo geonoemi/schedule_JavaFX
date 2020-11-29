@@ -9,14 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import sample.Database;
+import sample.Model.Model;
+
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 
 public class Home extends VBox {
 
@@ -79,11 +76,11 @@ public class Home extends VBox {
     private void nextScene(String lineNum, String lineLetter) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/stations.fxml"));
         Stations stations = new Stations(lineNum, lineLetter);
-        loader.setController(stations); //nemkell, mert ott van az fxmlben
+        loader.setController(stations);
+
         Stage stage = (Stage) this.container.getScene().getWindow();
         Parent root = loader.load();
         stage.setScene(new Scene(root, 700, 500));
-
         stage.show();
     }
 

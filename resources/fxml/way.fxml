@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.lang.reflect.Array?>
 <?import java.util.ArrayList?>
+
 <VBox stylesheets="/css/main.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="container">
-    <children>
 
-        <Label fx:id="title" text="Choose way:"/>
+        <Label fx:id="title" text="Melyik irányba mész?"/>
 
         <fx:define>
-            <ArrayList fx:id="wayList" >
-
-            </ArrayList>
+            <ArrayList fx:id="wayList" ></ArrayList>
         </fx:define>
-    </children>
 
-    <HBox fx:id="navButtons">
-        <Button  fx:id="back" text="vissza"/>
-        <Button fx:id="home" text="kezdőlap"/>
-    </HBox>
-
+        <HBox fx:id="navButtons">
+            <Button  fx:id="back" text="vissza"/>
+            <Button fx:id="home" text="kezdőlap"/>
+        </HBox>
 </VBox>

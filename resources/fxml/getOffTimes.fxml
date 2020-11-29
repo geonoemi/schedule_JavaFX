@@ -1,42 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.geometry.Insets?>
+
 <VBox stylesheets="/css/main.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="container">
 
-    <children>
-
-        <Label fx:id="title" text="Arriving times:"/>
-
+        <Label fx:id="title" text="A következő jármű ekkor érkezik:"/>
         <fx:define>
             <ArrayList fx:id="timesContainer" ></ArrayList>
         </fx:define>
 
-    </children>
+        <HBox fx:id="notificationBox">
+            <Rectangle fx:id="rect"/>
+            <Label fx:id="disabledLabel" text="Akadálymentesített játatok">
+                <HBox.margin>
+                    <Insets><left>10</left></Insets>
+                </HBox.margin>
+            </Label>
+        </HBox>
 
-    <HBox fx:id="notificationBox">
-
-        <Rectangle fx:id="rect"/>
-        <Label fx:id="disabledLabel" text="Akadálymentesített játatok">
-            <HBox.margin>
-                <Insets><left>10</left></Insets>
-            </HBox.margin>
-        </Label>
-
-    </HBox>
-
-    <HBox fx:id="navButtons">
-        <Button fx:id="back" text="vissza"/>
-        <Button fx:id="home" text="kezdőlap"/>
-    </HBox>
+        <HBox fx:id="navButtons">
+            <Button fx:id="back" text="vissza"/>
+            <Button fx:id="home" text="kezdőlap"/>
+        </HBox>
 
 </VBox>
