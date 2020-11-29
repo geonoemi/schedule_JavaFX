@@ -61,6 +61,11 @@ public class Way {
                 }
             }
         });
+        navigation();
+
+    }
+
+    public void navigation() {
         back.setOnAction(e-> {
             try {
                 prevScene( lineNum,  lineLetter);

@@ -15,7 +15,7 @@
 
     <children>
 
-        <Label fx:id="title" text="Time:"/>
+        <Label fx:id="title" text="Arriving times:"/>
 
         <fx:define>
             <ArrayList fx:id="timesContainer" ></ArrayList>
@@ -33,7 +33,10 @@
         </Label>
 
     </HBox>
-    <Button fx:id="back" text="vissza"/>
-    <Button fx:id="home" text="kezdőlap"/>
+
+    <HBox fx:id="navButtons">
+        <Button fx:id="back" text="vissza"/>
+        <Button fx:id="home" text="kezdőlap"/>
+    </HBox>
 
 </VBox>

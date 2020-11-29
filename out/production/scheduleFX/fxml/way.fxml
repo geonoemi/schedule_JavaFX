@@ -18,7 +18,9 @@
         </fx:define>
     </children>
 
-    <Button fx:id="back" text="vissza"/>
-    <Button fx:id="home" text="kezdőlap"/>
+    <HBox fx:id="navButtons">
+        <Button fx:id="back" text="vissza"/>
+        <Button fx:id="home" text="kezdőlap"/>
+    </HBox>
 
 </VBox>

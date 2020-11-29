@@ -30,7 +30,8 @@ public class GetOffTimes {
     @FXML Rectangle rect;
     @FXML Button back;
     @FXML Button home;
-    
+
+
     public GetOffTimes(String lineNum, String lineLetter, String stationName) {
         this.lineNum = lineNum;
         this.lineLetter = lineLetter;
@@ -60,13 +61,19 @@ public class GetOffTimes {
             this.container.getChildren().add(label);
         }
 
+        notification();
+        navigation();
+    }
 
+    private void notification() {
         rect = new Rectangle(0,0, 10, 10);
         rect.setFill(Color.rgb(255, 204, 0,1));
 
         notificationBox.getChildren().addAll(rect);
         notificationBox.setAlignment(Pos.BOTTOM_RIGHT);
+    }
 
+    private void navigation(){
         back.setOnAction(e-> {
             try {
                 prevScene( );
@@ -81,7 +88,6 @@ public class GetOffTimes {
                 ioException.printStackTrace();
             }
         });
-
     }
 
     private void homeScene() throws IOException {
@@ -92,13 +98,12 @@ public class GetOffTimes {
     }
 
     public void prevScene() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/way.fxml"));
-
-        Way way = new Way(lineNum, lineLetter);
-        loader.setController(way);
-        Parent root = loader.load();
-        Stage stage = (Stage) this.container.getScene().getWindow();
-        stage.setScene(new Scene(root, 700, 500));
-        stage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/way.fxml"));
+            Way way = new Way(lineNum, lineLetter);
+            loader.setController(way);
+            Parent root = loader.load();
+            Stage stage = (Stage) this.container.getScene().getWindow();
+            stage.setScene(new Scene(root, 700, 500));
+            stage.show();
     }
 }

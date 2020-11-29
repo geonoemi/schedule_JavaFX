@@ -3,11 +3,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -18,8 +21,7 @@ public class Stations {
     @FXML VBox container;
     @FXML Label title;
     @FXML Button back;
-    @FXML Button home;
-
+    @FXML HBox navButtons;
   //  @FXML ArrayList<Button> stationsButtonList=new ArrayList();
 
     private ChoiceBox<String> stationChoice = new ChoiceBox(); //fxmlből nem látja
@@ -32,6 +34,7 @@ public class Stations {
         this.lineNum = lineNum;
         this.lineLetter = lineLetter;
     }
+
     public void initialize() throws SQLException, IOException {
         this.container.getChildren().add(this.stationChoice);
         ArrayList<String> temp = model.getStationName(this.lineNum, lineLetter);
@@ -40,9 +43,11 @@ public class Stations {
              temp) {
             stations.add(s);
         }
+
         for (int i=0;i<stations.size();i++){
             this.stationChoice.getItems().addAll(stations.get(i));
         }
+
         this.stationChoice.setValue(this.stationChoice.getItems().get(0));
         this.stationChoice.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -56,6 +61,12 @@ public class Stations {
                  }
             }
         });
+        navigation();
+    };
+
+    private void navigation(){
+        navButtons.setPadding(new Insets(10));
+        navButtons.setAlignment(Pos.BOTTOM_RIGHT);
         back.setOnAction(e-> {
             try {
                 prevScene();
@@ -63,15 +74,7 @@ public class Stations {
                 ioException.printStackTrace();
             }
         });
-        home.setOnAction(e-> {
-            try {
-                prevScene();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
-    };
-
+    }
     private void nextScene(String lineNum, String lineLetter) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/way.fxml"));
