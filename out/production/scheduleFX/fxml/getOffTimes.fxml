@@ -6,6 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
 <VBox stylesheets="/css/main.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
@@ -15,13 +17,23 @@
 
         <Label fx:id="title" text="Time:"/>
 
-
-
         <fx:define>
-            <ArrayList fx:id="timesContainer" >
-
-            </ArrayList>
+            <ArrayList fx:id="timesContainer" ></ArrayList>
         </fx:define>
 
     </children>
+
+    <HBox fx:id="notificationBox">
+
+        <Rectangle fx:id="rect"/>
+        <Label fx:id="disabledLabel" text="Akadálymentesített játatok">
+            <HBox.margin>
+                <Insets><left>10</left></Insets>
+            </HBox.margin>
+        </Label>
+
+    </HBox>
+    <Button fx:id="back" text="vissza"/>
+    <Button fx:id="home" text="kezdőlap"/>
+
 </VBox>

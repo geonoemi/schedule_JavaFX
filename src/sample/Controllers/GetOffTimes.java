@@ -1,13 +1,12 @@
 package sample.Controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -19,13 +18,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GetOffTimes {
+
     private String lineNum, lineLetter, stationName;
     private Model model = new Model();
     private ArrayList<HBox> hboxes = new ArrayList();
+
     @FXML VBox container;
     @FXML ArrayList timesContainer;
     @FXML Label title;
-
+    @FXML HBox notificationBox;
+    @FXML Rectangle rect;
+    @FXML Button back;
+    @FXML Button home;
+    
     public GetOffTimes(String lineNum, String lineLetter, String stationName) {
         this.lineNum = lineNum;
         this.lineLetter = lineLetter;
@@ -33,7 +38,6 @@ public class GetOffTimes {
     }
 
     public void initialize() throws SQLException, IOException {
-        this.title.setText("The next vehicle arrives at the following times:");
         ArrayList<String> timesList = model.getDisabledVehicleTimesFromStations(this.lineNum, this.lineLetter, this.stationName);
         Label label = new Label();
         String times = "";
@@ -55,28 +59,46 @@ public class GetOffTimes {
             }
             this.container.getChildren().add(label);
         }
-        HBox notification=new HBox();
-        notification.setAlignment(Pos.BOTTOM_RIGHT);
-        Label notifLabel=new Label("akadálymentesített járatok");
 
-        Rectangle rect = new Rectangle(0,0, 10, 10);
+
+        rect = new Rectangle(0,0, 10, 10);
         rect.setFill(Color.rgb(255, 204, 0,1));
-        notification.getChildren().addAll(rect, notifLabel);
-        this.container.getChildren().addAll( notification);
 
+        notificationBox.getChildren().addAll(rect);
+        notificationBox.setAlignment(Pos.BOTTOM_RIGHT);
 
+        back.setOnAction(e-> {
+            try {
+                prevScene( );
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        home.setOnAction(e-> {
+            try {
+                homeScene();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
 
     }
-    /*public void nextScene() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/getofftimes.fxml"));
 
-        GetOffTimes got = new GetOffTimes(lineNum, lineLetter, stationName);
-        loader.setController(got);
+    private void homeScene() throws IOException {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) this.container.getScene().getWindow();
+            stage.setScene(new Scene(root, 700, 500));
+    }
+
+    public void prevScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/way.fxml"));
+
+        Way way = new Way(lineNum, lineLetter);
+        loader.setController(way);
         Parent root = loader.load();
         Stage stage = (Stage) this.container.getScene().getWindow();
         stage.setScene(new Scene(root, 700, 500));
-
-
         stage.show();
-    }*/
+    }
 }

@@ -28,16 +28,14 @@ public class Home extends VBox {
     private ArrayList<String> buttons = new ArrayList();
     private String clickedButtonText;
     private Model model = new Model();
-    private ArrayList<String[]> iHaveGivenUp;
+    private ArrayList<String[]> lines;
 
     public void initialize() throws SQLException {
-        //a lekérdezett rekordok Stringjeiből létrehozok egy tömblistát, ez lesz majd a gombok felirata
-        iHaveGivenUp = model.getLineNumLetter();
-        for (int i = 0; i< iHaveGivenUp.size(); i++) {
-            buttons.add(iHaveGivenUp.get(i)[0] + iHaveGivenUp.get(i)[1]);
+
+        lines = model.getLineNumLetter();
+        for (int i = 0; i< lines.size(); i++) {
+            buttons.add(lines.get(i)[0] + lines.get(i)[1]);
         }
-
-
         int a = 0;
         int b = 5;
 
@@ -46,7 +44,6 @@ public class Home extends VBox {
             this.hboxes.add(new HBox());
             container.getChildren().add(hboxes.get(i));
             for (int j = a; j < b; j++) {
-                //a tömblista elemeit átadom a generált gombok feliratának
                 buttonList.add(new Button(buttons.get(j)));
                 this.hboxes.get(i).getChildren().addAll(buttonList.get(j));
             }
@@ -59,19 +56,16 @@ public class Home extends VBox {
     public void clickedButton(){
 
         for(int i=0;i<buttonList.size();i++){
+
             buttonList.get(i).setOnAction(e-> {
-                //System.out.println("Button pressed " + ((Button) e.getSource()).getText());
-                //kiszedjük a megnyomott gomb szövegét
-
-
                 try {
 
                     this.clickedButtonText=((Button) e.getSource()).getText();
                     String lineNum = "", lineLetter = "";
                     for(int j = 0; j<buttons.size(); j++) {
                         if (this.clickedButtonText.equals(buttons.get(j))) {
-                            lineNum = iHaveGivenUp.get(j)[0];
-                            lineLetter = iHaveGivenUp.get(j)[1];
+                            lineNum = lines.get(j)[0];
+                            lineLetter = lines.get(j)[1];
                         }
                     }
                     nextScene(lineNum, lineLetter);
@@ -81,16 +75,11 @@ public class Home extends VBox {
                 }
             });
         }
-
-
-
     }
     private void nextScene(String lineNum, String lineLetter) throws IOException {
-       // System.out.println("Gecikurvaanyád");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/stations.fxml"));
         Stations stations = new Stations(lineNum, lineLetter);
-
-        loader.setController(stations);
+        loader.setController(stations); //nemkell, mert ott van az fxmlben
         Stage stage = (Stage) this.container.getScene().getWindow();
         Parent root = loader.load();
         stage.setScene(new Scene(root, 700, 500));

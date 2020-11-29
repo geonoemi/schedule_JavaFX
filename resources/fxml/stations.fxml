@@ -8,6 +8,7 @@
 <VBox stylesheets="/css/main.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
+
       fx:id="container">
 
     <children>
@@ -23,4 +24,8 @@
         </fx:define>
 
     </children>
+
+    <Button fx:id="back" text="vissza"/>
+    <Button fx:id="home" text="kezdőlap"/>
+
 </VBox>

@@ -11,18 +11,15 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sample.Database;
-
-
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Way {
     @FXML VBox container;
-    @FXML Label title;
+    @FXML Button back;
+    @FXML Button home;
+    //@FXML Label title;
     @FXML ArrayList<String> wayList = new ArrayList();
 
     private ChoiceBox<String> wayChoice = new ChoiceBox();
@@ -31,20 +28,14 @@ public class Way {
     private String lineLetter;
     private Model model = new Model();
 
-   /* private String num=Home.getClickedButtonText().substring(0,2);
-    private String letter=Home.getClickedButtonText().substring(2,3);*/
     public Way(String lineNum, String lineLetter) {
 
         this.lineNum = lineNum;
         this.lineLetter = lineLetter;
-       /* System.out.println(lineNum);
-        System.out.println(lineLetter);*/
     }
 
     public void initialize() throws SQLException, IOException {
-        //choicebox hozzáadása a containerhez
         this.container.getChildren().add(this.wayChoice);
-        //kiszedjük a kezdő és végállomásokat stringként
         wayList.add("Válasszon állomást");
         ArrayList<String> temp = model.getWayList(lineNum, lineLetter);
         for (String s:
@@ -52,12 +43,10 @@ public class Way {
             wayList.add(s);
         }
 
-        //az kezdő és végállomásokat átadjuk a choiceboxnak
         for (int i = 0; i < wayList.size(); i++) {
             this.wayChoice.getItems().addAll(wayList.get(i));
-           /* System.out.println("stations: " + wayList.get(i));*/
         }
-        //coiceboxnak kezdőérték
+
         this.wayChoice.setValue(this.wayChoice.getItems().get(0));
         this.wayChoice.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -72,6 +61,20 @@ public class Way {
                 }
             }
         });
+        back.setOnAction(e-> {
+            try {
+                prevScene( lineNum,  lineLetter);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        home.setOnAction(e-> {
+            try {
+                homeScene();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
     }
 
     private void nextScene(String lineNum, String lineLetter, String stationName) throws IOException {
@@ -82,8 +85,24 @@ public class Way {
         Stage stage = (Stage) this.container.getScene().getWindow();
         stage.setScene(new Scene(root, 700, 500));
 
-
         stage.show();
     }
 
+    private void prevScene(String lineNum, String lineLetter) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/stations.fxml"));
+        Stations stations = new Stations(lineNum, lineLetter);
+        loader.setController(stations);
+        Parent root = loader.load();
+        Stage stage = (Stage) this.container.getScene().getWindow();
+        stage.setScene(new Scene(root, 700, 500));
+
+        stage.show();
+    }
+    private void homeScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/home.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) this.container.getScene().getWindow();
+        stage.setScene(new Scene(root, 700, 500));
+
+    }
 }

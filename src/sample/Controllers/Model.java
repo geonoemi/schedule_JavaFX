@@ -33,14 +33,11 @@ public class Model {
 
         while (result.next()) {
             stations.add(result.getString("nev"));
-            System.out.println(result.getString("nev"));
-
         }
         return stations;
     }
      public ArrayList getWayList(String line, String letter) throws SQLException {
         ArrayList<String> ways = new ArrayList<>();
-        System.out.println(line);
         ResultSet result = db.query("SELECT\n" +
                 "A.nev,\n" +
                 "V1.vonalSzam,\n" +
@@ -53,7 +50,6 @@ public class Model {
                 "WHERE V1.vonalSzam LIKE '"+ line+"' AND V1.vonalBetujel='" + letter + "';" );
 
          while(result.next()) {
-            System.out.println(result.getString("nev"));
             ways.add(result.getString("nev"));
         }
         return ways;
@@ -77,7 +73,7 @@ public class Model {
                 "            INNER JOIN jarat ON vonal.vonalSorszam = jarat.vonalSorszam \n" +
                 "            WHERE \n" +
                 "            vonal.vonalSzam LIKE '"+linenum+"'  AND vonal.vonalBetujel LIKE '"+lineLetter+"'\n" +
-                "            AND vonal.kezdoAllomasSorszam IN ( SELECT allomas.allomasSorszam \n" +
+                "            AND vonal.vegAllomasSorszam IN ( SELECT allomas.allomasSorszam \n" +
                 "               FROM allomas WHERE allomas.nev LIKE '"+stationName +"');");
         while (result.next()) {
             times.add(result.getString("indulasiIdo")+" "+ result.getString("rokkantHelyekSzama")+" "+result.getString("alacsonyPadlos"));
