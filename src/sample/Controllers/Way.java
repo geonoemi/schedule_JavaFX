@@ -32,6 +32,7 @@ public class Way {
 
         this.lineNum = lineNum;
         this.lineLetter = lineLetter;
+
     }
 
     public void initialize() throws SQLException, IOException {
