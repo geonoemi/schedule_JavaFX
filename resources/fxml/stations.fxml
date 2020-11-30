@@ -10,9 +10,5 @@
 
         <Label fx:id="title" text="Honnan indulsz?"/>
 
-        <fx:define>
-            <ArrayList fx:id="stationsButtonList" ></ArrayList>
-        </fx:define>
-
         <HBox fx:id="navButtons"><Button fx:id="back" text="vissza"/></HBox>
 </VBox>

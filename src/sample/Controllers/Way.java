@@ -39,7 +39,9 @@ public class Way {
         wayList.add("Válassz állomást");
         ArrayList<String> ways = model.getWayList(lineNum, lineLetter, stationName);
         for (String way:ways) {
-            wayList.add(way);
+            if (!way.equals(stationName)) {
+                wayList.add(way);
+            }
         }
 
         for (int i = 0; i < wayList.size(); i++) {
@@ -51,7 +53,8 @@ public class Way {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 if (t1 != null) {
-                    clickedWay = wayList.get((int) t1);
+                    clickedWay = wayChoice.getItems().get((int) t1);
+
                     try {
                         nextScene(lineNum, lineLetter, clickedWay);
                     } catch (IOException e) {

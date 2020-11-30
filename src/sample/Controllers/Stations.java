@@ -31,15 +31,18 @@ public class Stations {
     public Stations(String lineNum, String lineLetter) {
         this.lineNum = lineNum;
         this.lineLetter = lineLetter;
-       // this.stationName=stationName;
+
     }
 
     public void initialize() throws SQLException, IOException {
         this.container.getChildren().add(this.stationChoice);
-        ArrayList<String> stationList = model.getStationName(this.lineNum, lineLetter);
         stations.add("Válassz állomást");
+        ArrayList<String> stationList = model.getStationName(this.lineNum, lineLetter);
+
         for (String station : stationList) {
-            stations.add(station);
+
+                stations.add(station);
+
         }
 
         for (int i=0;i<stations.size();i++){
@@ -51,7 +54,9 @@ public class Stations {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                  if (t1 != null) {
+                     stationName = stationChoice.getItems().get((int) t1);
                      try {
+
                          nextScene(lineNum, lineLetter,stationName);
                      } catch (IOException e) {
                          e.printStackTrace();
