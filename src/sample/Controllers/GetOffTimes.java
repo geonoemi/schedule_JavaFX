@@ -106,7 +106,7 @@ public class GetOffTimes {
 
     public void prevScene() throws IOException {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/way.fxml"));
-            Way way = new Way(lineNum, lineLetter);
+            Way way = new Way(lineNum, lineLetter, stationName);
             loader.setController(way);
             Parent root = loader.load();
             Stage stage = (Stage) this.container.getScene().getWindow();

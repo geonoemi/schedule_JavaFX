@@ -32,7 +32,7 @@ public class Model {
         }
         return stations;
     }
-     public ArrayList getWayList(String line, String letter) throws SQLException {
+     public ArrayList getWayList(String line, String letter, String stationName) throws SQLException {
         ArrayList<String> ways = new ArrayList<>();
         ResultSet result = db.query("SELECT\n" +
                 "A.nev,\n" +
@@ -42,8 +42,9 @@ public class Model {
                 "V1.vegAllomasSorszam\n" +
                 "FROM allomas AS A\n" +
                 "INNER JOIN vonal AS V1 ON A.allomasSorszam = V1.kezdoAllomasSorszam\n" +
-                "\n" +
-                "WHERE V1.vonalSzam LIKE '"+ line+"' AND V1.vonalBetujel='" + letter + "';" );
+                "WHERE V1.vonalSzam LIKE '"+ line+"' AND V1.vonalBetujel='" + letter + "' " +
+                "AND V1.vegAllomasSorszam IN ( SELECT allomas.allomasSorszam \n" +
+                "                               FROM allomas WHERE allomas.nev like '"+stationName+"');" );
 
          while(result.next()) {
             ways.add(result.getString("nev"));

@@ -25,12 +25,13 @@ public class Stations {
 
     private ChoiceBox<String> stationChoice = new ChoiceBox();
     private ArrayList<String> stations = new ArrayList();
-    private String lineNum, lineLetter;
+    private String lineNum, lineLetter, stationName;
     private Model model = new Model();
 
     public Stations(String lineNum, String lineLetter) {
         this.lineNum = lineNum;
         this.lineLetter = lineLetter;
+       // this.stationName=stationName;
     }
 
     public void initialize() throws SQLException, IOException {
@@ -51,7 +52,7 @@ public class Stations {
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                  if (t1 != null) {
                      try {
-                         nextScene(lineNum, lineLetter);
+                         nextScene(lineNum, lineLetter,stationName);
                      } catch (IOException e) {
                          e.printStackTrace();
                      }
@@ -73,9 +74,9 @@ public class Stations {
             }
         });
     }
-    private void nextScene(String lineNum, String lineLetter) throws IOException {
+    private void nextScene(String lineNum, String lineLetter, String stationName) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/way.fxml"));
-        Way way = new Way(lineNum, lineLetter);
+        Way way = new Way(lineNum, lineLetter, stationName);
         loader.setController(way);
 
         Parent root = loader.load();

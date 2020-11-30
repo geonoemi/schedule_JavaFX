@@ -26,7 +26,7 @@ public class Home extends VBox {
     private String clickedButtonText;
     private Model model = new Model();
     private ArrayList<String[]> lines;
-
+    private String stationName;
     public void initialize() throws SQLException {
 
         lines = model.getLineNumLetter();

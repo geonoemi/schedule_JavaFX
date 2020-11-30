@@ -24,20 +24,20 @@ public class Way {
 
     private ChoiceBox<String> wayChoice = new ChoiceBox();
     private String clickedWay;
-    private String lineNum;
-    private String lineLetter;
+    private String lineNum,lineLetter,stationName;
     private Model model = new Model();
 
-    public Way(String lineNum, String lineLetter) {
+    public Way(String lineNum, String lineLetter,String stationName) {
         this.lineNum = lineNum;
         this.lineLetter = lineLetter;
+        this.stationName = stationName;
     }
 
     public void initialize() throws SQLException, IOException {
 
         this.container.getChildren().add(this.wayChoice);
         wayList.add("Válassz állomást");
-        ArrayList<String> ways = model.getWayList(lineNum, lineLetter);
+        ArrayList<String> ways = model.getWayList(lineNum, lineLetter, stationName);
         for (String way:ways) {
             wayList.add(way);
         }
