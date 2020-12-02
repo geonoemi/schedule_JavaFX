@@ -9,7 +9,7 @@
       fx:controller="sample.Controllers.Home"
       fx:id="container">
 
-        <Label fx:id="title" text="Válassz valamit:"/>
+        <Label fx:id="title" text="Válassz járatot:"/>
         <fx:define>
             <ArrayList fx:id="buttonList"></ArrayList>
         </fx:define>

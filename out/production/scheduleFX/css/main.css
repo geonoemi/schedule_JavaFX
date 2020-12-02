@@ -50,10 +50,11 @@
 
 }
 
-.stationsButtonList{
+.navButtonClass{
+    -fx-font-size: 10px;
+    -fx-padding: 5px;
 
 }
-
 .choice-box {
     -fx-background-color: black;
     -fx-mark-color: orange;

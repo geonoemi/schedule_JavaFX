@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.util.ArrayList?>
 
+<?import java.util.ArrayList?>
 <VBox stylesheets="/css/main.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="container">
 
         <Label fx:id="title" text="Honnan indulsz?"/>
-
+        <fx:define>
+                <ArrayList fx:id="stations" ></ArrayList>
+        </fx:define>
         <HBox fx:id="navButtons"><Button fx:id="back" text="vissza"/></HBox>
 </VBox>

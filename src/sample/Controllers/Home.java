@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.Model.Model;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -73,6 +72,7 @@ public class Home extends VBox {
             });
         }
     }
+
     private void nextScene(String lineNum, String lineLetter) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/stations.fxml"));
         Stations stations = new Stations(lineNum, lineLetter);

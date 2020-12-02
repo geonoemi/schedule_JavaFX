@@ -1,6 +1,5 @@
 package sample.Model;
 
-import sample.Database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ public class Model {
 
     public ArrayList<String[]> getLineNumLetter() throws SQLException {
         ArrayList<String[]> result = new ArrayList<>();
-
         ResultSet queryResult = db.query("SELECT vonalSzam, vonalBetujel FROM vonal WHERE vonalSorszam%2=0 ORDER BY vonalSzam, vonalBetujel ASC;");
         while (queryResult.next()) {
             result.add(new String[]{queryResult.getString("vonalSzam"), queryResult.getString("vonalBetujel")});
@@ -63,7 +61,8 @@ public class Model {
                 "            AND vonal.vegAllomasSorszam IN ( SELECT allomas.allomasSorszam \n" +
                 "               FROM allomas WHERE allomas.nev LIKE '"+stationName +"');");
         while (result.next()) {
-            times.add(result.getString("indulasiIdo")+" "+ result.getString("rokkantHelyekSzama")+" "+result.getString("alacsonyPadlos"));
+            times.add(result.getString("indulasiIdo")+" "+ result.getString("rokkantHelyekSzama")+" "+
+                      result.getString("alacsonyPadlos"));
         }
         return times;
     }

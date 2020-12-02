@@ -11,7 +11,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.Model.Model;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,6 +37,7 @@ public class Way {
         this.container.getChildren().add(this.wayChoice);
         wayList.add("Válassz állomást");
         ArrayList<String> ways = model.getWayList(lineNum, lineLetter, stationName);
+
         for (String way:ways) {
             if (!way.equals(stationName)) {
                 wayList.add(way);
@@ -67,6 +67,7 @@ public class Way {
     }
 
     public void navigation() {
+        
         back.setOnAction(e-> {
             try {
                 prevScene( lineNum,  lineLetter);

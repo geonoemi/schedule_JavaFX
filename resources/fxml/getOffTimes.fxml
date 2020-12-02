@@ -11,7 +11,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:id="container">
 
-        <Label fx:id="title" text="A következő jármű ekkor érkezik:"/>
+        <Label fx:id="title" text="A következő járat ekkor érkezik:"/>
         <fx:define>
             <ArrayList fx:id="timesContainer" ></ArrayList>
         </fx:define>

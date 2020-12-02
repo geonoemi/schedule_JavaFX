@@ -22,9 +22,9 @@ public class Stations {
     @FXML VBox container;
     @FXML Button back;
     @FXML HBox navButtons;
+    @FXML ArrayList<String> stations = new ArrayList();
 
     private ChoiceBox<String> stationChoice = new ChoiceBox();
-    private ArrayList<String> stations = new ArrayList();
     private String lineNum, lineLetter, stationName;
     private Model model = new Model();
 
